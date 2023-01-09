@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+.ymaps-2-1-79-ground-pane {
+  filter: invert(90%) hue-rotate(170deg);
+  -ms-filter: invert(90%) hue-rotate(170deg);
+  -webkit-filter: invert(90%) hue-rotate(170deg);
+  -moz-filter: invert(90%) hue-rotate(170deg);
+  -o-filter: invert(90%) hue-rotate(170deg);
+}
