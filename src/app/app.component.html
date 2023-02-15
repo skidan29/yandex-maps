@@ -1,8 +1,6 @@
-<section>
-  <h1>Yandex Maps</h1>
-  <div class="container">
-    <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-      <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-    </ya-map>
-  </div>
-</section>
+<nav class="nav">
+  <a routerLink="/" routerLinkActive="active">Главная</a>
+  <a routerLink="yandex-maps" routerLinkActive="active">Яндекс карта</a>
+  <a routerLink="first" routerLinkActive="active">Первая</a>
+</nav>
+<router-outlet></router-outlet>
