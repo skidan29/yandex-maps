@@ -5,9 +5,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AngularYandexMapsModule} from "angular8-yandex-maps";
 import {NgxsModule} from "@ngxs/store";
-import {ZooState} from "../state/animal.state";
 import {FirstPageComponent} from "../pages/first/firstPage.component";
 import {YandexMapsComponent} from "../pages/yandex-maps/yandex-maps.component";
+import {FavoriteState} from "../state/favorite.state";
 
 
 const COMPONENTS = [
@@ -24,7 +24,7 @@ const COMPONENTS = [
     BrowserModule,
     AppRoutingModule,
     AngularYandexMapsModule.forRoot({}),
-    NgxsModule.forRoot([ZooState], {
+    NgxsModule.forRoot([FavoriteState], {
       developmentMode: true
     }),
   ],

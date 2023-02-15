@@ -1,23 +1,32 @@
 import {Component, OnInit} from '@angular/core';
-import { Store} from "@ngxs/store";
+import {Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {FeedAnimals} from "../state/animal.state";
+import {AddPremises} from "../state/favorite.state";
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-  animals$: Observable<string[]>;
+export class AppComponent implements OnInit {
+  premises$: Observable<any[]>;
 
   constructor(private store: Store) {
-    this.animals$ = this.store.select(state => state.zoo.animalName);
+    this.premises$ = this.store.select(state => state.favorites.premises);
   }
 
   public ngOnInit(): void {
-    setTimeout(()=>this.store.dispatch(new FeedAnimals('Кошка')),2000);
-    this.animals$.subscribe(data=>console.log(data));
+
+    this.premises$.subscribe(data => console.log(data));
   }
 
+  public addPremises() {
+    const premises = {
+      number: 325,
+      floor: 7,
+      rooms: 2,
+    }
+    this.store.dispatch(new AddPremises(premises));
+  }
 }

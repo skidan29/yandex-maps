@@ -1,3 +1,11 @@
 <section>
-  <h1>Первая страница</h1>
+  <h1>Список Избранных Квартир:</h1>
+
+  <ul>
+    <li *ngFor=" let premises of premises$ | async">
+      <div>number: {{premises.number}}</div>
+      <div>floor: {{premises.floor}}</div>
+      <div>: {{premises.rooms}}</div>
+    </li>
+  </ul>
 </section>
