@@ -3,5 +3,21 @@
   <a routerLink="yandex-maps" routerLinkActive="active">Яндекс карта</a>
   <a routerLink="first" routerLinkActive="active">Первая</a>
 </nav>
+<form [formGroup]="form">
+  <div>
+    <div>номер кв</div>
+    <input formControlName="number" type="number">
+  </div>
+
+  <div>
+    <div>этаж</div>
+    <input formControlName="floor"  type="number">
+  </div>
+
+  <div>
+    <div>кол-во комнат</div>
+    <input formControlName="rooms" type="number">
+  </div>
+</form>
 <button (click)="addPremises()">Добавить помещение в избранное</button>
 <router-outlet></router-outlet>

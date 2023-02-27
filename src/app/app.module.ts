@@ -8,6 +8,7 @@ import {NgxsModule} from "@ngxs/store";
 import {FirstPageComponent} from "../pages/first/firstPage.component";
 import {YandexMapsComponent} from "../pages/yandex-maps/yandex-maps.component";
 import {FavoriteState} from "../state/favorite.state";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 const COMPONENTS = [
@@ -27,6 +28,7 @@ const COMPONENTS = [
     NgxsModule.forRoot([FavoriteState], {
       developmentMode: true
     }),
+    ReactiveFormsModule,
   ],
   exports: [...COMPONENTS],
   providers: [],

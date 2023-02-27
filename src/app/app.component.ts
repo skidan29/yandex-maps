@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngxs/store";
 import {Observable} from "rxjs";
-import {AddPremises} from "../state/favorite.state";
+import {AddPremises, IPremises} from "../state/favorite.state";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -11,8 +12,13 @@ import {AddPremises} from "../state/favorite.state";
 })
 export class AppComponent implements OnInit {
   premises$: Observable<any[]>;
+  public form = this.fb.group({
+    number: 0,
+    floor: 0,
+    rooms: 0,
+  })
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private fb: FormBuilder) {
     this.premises$ = this.store.select(state => state.favorites.premises);
   }
 
@@ -21,11 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   public addPremises() {
-    const premises = {
-      number: 325,
-      floor: 7,
-      rooms: 2,
-    }
-    this.store.dispatch(new AddPremises(premises));
+   this.store.dispatch(new AddPremises(this.form.value as IPremises));
   }
+
 }

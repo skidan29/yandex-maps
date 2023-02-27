@@ -1,10 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Action, State, StateContext} from '@ngxs/store';
+import {patch, removeItem} from "@ngxs/store/operators";
 
 export class AddPremises {
   static readonly type = '[Favorite] Add Premises';
 
   constructor(public premises: IPremises) {
+  }
+}
+
+export class RemovePremises {
+  static readonly type = '[Favorite] remove Premises';
+
+  constructor(public premisesNumber: number) {
   }
 }
 
@@ -39,7 +47,7 @@ export class FavoriteState {
   }
 
   @Action(AddPremises)
-  feedAnimals(ctx: StateContext<FavoriteStateModel>, action: AddPremises) {
+  addPremises(ctx: StateContext<FavoriteStateModel>, action: AddPremises) {
     const state = ctx.getState();
 
     ctx.setState({
@@ -54,6 +62,16 @@ export class FavoriteState {
       this.setPremisesToStorage(lastPremises);
     }
 
+  }
+
+  @Action(RemovePremises)
+  removeAnimal(ctx: StateContext<FavoriteStateModel>, premisesNumber: RemovePremises) {
+
+      ctx.setState(
+        patch<FavoriteStateModel>({
+          premises: removeItem<IPremises>(number => number?.number === premisesNumber.premisesNumber)
+        })
+      );
   }
 
 }
