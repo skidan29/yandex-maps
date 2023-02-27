@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Action, State, StateContext} from '@ngxs/store';
-import {patch, removeItem} from "@ngxs/store/operators";
+import {append, patch, removeItem} from "@ngxs/store/operators";
 
 export class AddPremises {
   static readonly type = '[Favorite] Add Premises';
@@ -10,7 +10,7 @@ export class AddPremises {
 }
 
 export class RemovePremises {
-  static readonly type = '[Favorite] remove Premises';
+  static readonly type = '[Favorite] Remove Premises';
 
   constructor(public premisesNumber: number) {
   }
@@ -41,37 +41,35 @@ const getPremisesFromStorage = () => {
 })
 @Injectable()
 export class FavoriteState {
-  public setPremisesToStorage(premises: IPremises) {
-    const premisesList = [...getPremisesFromStorage(), premises];
+
+  public upgradePremisesInStorage(premisesList: IPremises[]) {
     localStorage.setItem('favorite', JSON.stringify(premisesList));
   }
 
   @Action(AddPremises)
   addPremises(ctx: StateContext<FavoriteStateModel>, action: AddPremises) {
-    const state = ctx.getState();
 
-    ctx.setState({
-      premises: [
-        ...state.premises,
-        action.premises
-      ]
-    });
+    ctx.setState(
+      patch<FavoriteStateModel>({
+        premises: append<IPremises>([action.premises])
+      })
+    );
 
-    const lastPremises = [...ctx.getState().premises].pop();
-    if (lastPremises) {
-      this.setPremisesToStorage(lastPremises);
-    }
-
+    const premisesList = ctx.getState().premises;
+    this.upgradePremisesInStorage(premisesList);
   }
 
   @Action(RemovePremises)
-  removeAnimal(ctx: StateContext<FavoriteStateModel>, premisesNumber: RemovePremises) {
+  removeAnimal(ctx: StateContext<FavoriteStateModel>, action: RemovePremises) {
 
-      ctx.setState(
-        patch<FavoriteStateModel>({
-          premises: removeItem<IPremises>(number => number?.number === premisesNumber.premisesNumber)
-        })
-      );
+    ctx.setState(
+      patch<FavoriteStateModel>({
+        premises: removeItem<IPremises>(number => number?.number === action.premisesNumber)
+      })
+    );
+
+    const premisesList = ctx.getState().premises;
+    this.upgradePremisesInStorage(premisesList);
   }
 
 }
