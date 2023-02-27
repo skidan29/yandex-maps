@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-
     this.premises$.subscribe(data => console.log(data));
   }
 

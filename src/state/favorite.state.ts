@@ -18,23 +18,42 @@ export interface FavoriteStateModel {
   premises: IPremises[];
 }
 
+const getPremisesFromStorage = () => {
+  const premisesJson = localStorage.getItem('favorite');
+  return premisesJson ? JSON.parse(premisesJson) : [];
+}
+
 @State<FavoriteStateModel>({
   name: 'favorites',
   defaults: {
-    premises: [],
+    premises: [
+      ...getPremisesFromStorage()
+    ],
   }
 })
 @Injectable()
 export class FavoriteState {
+  public setPremisesToStorage(premises: IPremises) {
+    const premisesList = [...getPremisesFromStorage(), premises];
+    localStorage.setItem('favorite', JSON.stringify(premisesList));
+  }
+
   @Action(AddPremises)
   feedAnimals(ctx: StateContext<FavoriteStateModel>, action: AddPremises) {
     const state = ctx.getState();
+
     ctx.setState({
-      ...state,
       premises: [
         ...state.premises,
         action.premises
       ]
     });
+
+    const lastPremises = [...ctx.getState().premises].pop();
+    if (lastPremises) {
+      this.setPremisesToStorage(lastPremises);
+    }
+
   }
+
 }
