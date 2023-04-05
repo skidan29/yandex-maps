@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from "rxjs";
 import {Store} from "@ngxs/store";
-import {IPremises} from "../../state/favorite.state";
+import {IPremises, RemovePremises} from "../../state/favorite.state";
 
 @Component({
   selector: 'app-root',
@@ -15,5 +15,8 @@ export class FirstPageComponent {
     this.premises$ = this.store.select(state => state.favorites.premises);
   }
 
+  public removePremises(premisesNumber:number){
+    this.store.dispatch(new RemovePremises(premisesNumber));
+  }
 
 }

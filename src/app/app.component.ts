@@ -32,6 +32,8 @@ class Example {
 }
 
 let newClass = new Example();
+import {AddPremises, IPremises} from "../state/favorite.state";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
   ) {
+  constructor(private store: Store, private fb: FormBuilder) {
     this.premises$ = this.store.select(state => state.favorites.premises);
   }
 
@@ -69,11 +72,7 @@ export class AppComponent implements OnInit {
   }
 
   public addPremises() {
-    const premises = {
-      number: 325,
-      floor: 7,
-      rooms: 2,
-    }
-    this.store.dispatch(new AddPremises(premises));
+   this.store.dispatch(new AddPremises(this.form.value as IPremises));
   }
+
 }

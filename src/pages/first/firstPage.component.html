@@ -2,10 +2,11 @@
   <h1>Список Избранных Квартир:</h1>
 
   <ul>
-    <li *ngFor=" let premises of premises$ | async">
+    <li *ngFor=" let premises of premises$ | async ; index as premisesIdx">
       <div>number: {{premises.number}}</div>
       <div>floor: {{premises.floor}}</div>
       <div>: {{premises.rooms}}</div>
+      <button type="button" (click)="removePremises(premises.number)">del</button>
     </li>
   </ul>
 </section>
