@@ -3,5 +3,12 @@
   <a routerLink="yandex-maps" routerLinkActive="active">Яндекс карта</a>
   <a routerLink="first" routerLinkActive="active">Первая</a>
 </nav>
+
+<form *ngIf="form" [formGroup]="form">
+  Name:<app-custom-input formControlName="name"></app-custom-input>
+  Age:<app-custom-input formControlName="age"></app-custom-input>
+</form>
+<button (click)="showValue()">Показать значение формы</button>
+
 <button (click)="addPremises()">Добавить помещение в избранное</button>
 <router-outlet></router-outlet>
